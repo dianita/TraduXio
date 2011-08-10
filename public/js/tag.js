@@ -132,14 +132,14 @@ if (typeof console == "undefined") console={log:function(){}};
 		});   
 	   });
 	   
-        $("#tagform").live('submit',function(){
+        $("#tagform").livequery('submit',function(){
 			var parentId = $(this).parent('div').attr('id');
 			var textId = parentId=='orig-tag'?window.workId:window.trId;
             tdxio.tag.insert(textId,parentId);      
             return false;
 		});            
 		
-		 $("#stag-form").live('submit',function(){
+		 $("#stag-form").livequery('submit',function(){
 			var textId = window.workId;
             tdxio.tag.insertStag(textId,window.sentenceToTag);      
             return false;

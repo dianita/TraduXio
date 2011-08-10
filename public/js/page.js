@@ -638,7 +638,7 @@ var sentenceToTag;
 			return false;
 		});
 		
-		$('#translate-form select#language').live('change',function(e){
+		$('#translate-form select#language').livequery('change',function(e){
 			var srcLang, destLang;
 			srcLang = window.ajaxData.work.language;
 			destLang = $(this).attr('value');
@@ -649,7 +649,7 @@ var sentenceToTag;
         url=encodeURI(tdxio.baseUrl+"/translation/save");
    
 		
-		$('.work-title input,input.translator-name').live('focusout change',function(e){
+		$('.work-title input,input.translator-name').livequery('focusout change',function(e){
 			var id = $(this).attr('id');
 			var textId = ($(this).parent('div').parent('div.text-container').attr('id')=='work')?window.workId:window.trId;
 			var value = $(this).val();
@@ -673,7 +673,7 @@ var sentenceToTag;
 			return false;
 		});
 		
-		$("form#extend-form").live("submit",function(event) {
+		$("form#extend-form").livequery("submit",function(event) {
 			event.preventDefault();
 			$("form#extend-form input").attr('disabled', true);            
 			window.$.submitForm($(this),"ajaxextend",{'id':workId});
@@ -759,7 +759,7 @@ var sentenceToTag;
 			if(window.state=='editable')
 				$(this).replaceTag("span.block.show.editable","textarea");			
 		});
-		$('#translation div.text textarea.block.show.editable').live('change focusout',function(e){
+		$('#translation div.text textarea.block.show.editable').livequery('change focusout',function(e){
 			if(window.state=='editable'){
 				if(e.originalEvent.type == "change"){window.$.submitTranslation($(this).attr('id'));}
 				$(this).replaceTag("textarea.block.show.editable","span");
@@ -836,7 +836,7 @@ var sentenceToTag;
 		
         $("#concord-query").submit(tdxio.textSearch.getConcord);
         
-        $("form#translate-form").live("submit",function(event) {
+        $("form#translate-form").livequery("submit",function(event) {
             event.preventDefault();
             $("form#translate-form input[type=reset],form#translate-form input[type=submit]").attr('disabled', true);            
 			window.$.submitForm($(this),"createtr",{'id':workId});
@@ -889,7 +889,7 @@ var sentenceToTag;
 			$(".print").jqprint();
 		});
 		*/
-		$('textarea').live('focus',function(){
+		$('textarea').livequery('focus',function(){
 			$(this).css({'color':'#585858','font-family':'Verdana,Arial,Helvetica,sans-serif'});//,'font-size':$(this).parent().css('font-size')});
 		});
 		
@@ -936,7 +936,7 @@ var sentenceToTag;
 			}
 		});
 		
-		$("#stagTA").live('focus',function(event){$(this).empty(); $(this).unbind( event );});
+		$("#stagTA").livequery('focus',function(event){$(this).empty(); $(this).unbind( event );});
 		
 		$("#addnote,#addnotebtn").click(function(e){
 			var can = false;
