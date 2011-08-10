@@ -802,7 +802,9 @@ var sentenceToTag;
 			var target = e.target;
 			var fontSize = $(this).css('font-size');
 			var name = ($(this).hasClass('translator-name')?'translator':$(this).attr('id').split('-')[1]);
-			var textId = (($(this).attr('id')).search('orig')==-1)?trId:workId;
+			var textId = trId;
+			if(($(this).attr('id')!==undefined)
+				textId = (($(this).attr('id')).search('orig')==-1)?trId:workId;
 			var content = $.getValue(name,textId);
 			content = (content==null)?'':content;
 			var idText = ($(this).attr('id')!=null && $(this).attr('id')!='')?"id = \""+$(this).attr('id')+"\"":"";
