@@ -106,45 +106,40 @@ if (typeof console == "undefined") console={log:function(){}};
         
     };
     
-   $(document).ready(function() {
+	$(document).ready(function() {
 	   
-	   $(".add-tag").live('click',function(){
-		var parentId = $(this).parent('div').attr('id');
-		var textId = parentId=='orig-tag'?window.workId:window.trId;
-		$.ajax({
-			type:"get",
-			url:encodeURI(tdxio.baseUrl+"/tag/getform"),
-			dataType: "json",
-			data:{'id':textId},
-			success: function(rdata,status){
-				if (rdata.response==false) {
-					if(rdata.message.code == 2){tdxio.page.redirect(rdata.message.text);}
-					else alert(rdata.message.code);
-				}else{
-					//$("div#"+parentId+" .add-tag").replaceWith(rdata.tagform);
-					$("div#"+parentId).prepend(rdata.tagform);
-					$("div#"+parentId+" .add-tag").css('display','none');
-				}
-			},
-			error: function() {
-				alert("error getting the form");
-			}
-		});   
-	   });
-	   
-        $("#tagform").livequery('submit',function(){
+		$(".add-tag").live('click',function(){
 			var parentId = $(this).parent('div').attr('id');
 			var textId = parentId=='orig-tag'?window.workId:window.trId;
-            tdxio.tag.insert(textId,parentId);      
-            return false;
-		});            
-		
-		 $("#stag-form").livequery('submit',function(){
-			var textId = window.workId;
-            tdxio.tag.insertStag(textId,window.sentenceToTag);      
-            return false;
-		});  
-       
+			$.ajax({
+				type:"get",
+				url:encodeURI(tdxio.baseUrl+"/tag/getform"),
+				dataType: "json",
+				data:{'id':textId},
+				async:false,
+				success: function(rdata,status){
+					if (rdata.response==false) {
+						if(rdata.message.code == 2){tdxio.page.redirect(rdata.message.text);}
+						else alert(rdata.message.code);
+					}else{
+						//$("div#"+parentId+" .add-tag").replaceWith(rdata.tagform);
+						$("div#"+parentId).prepend(rdata.tagform);
+						$("div#"+parentId+" .add-tag").css('display','none');
+					}
+				},
+				error: function() {
+					alert("error getting the form");
+				}
+			});  
+			$("#tagform").bind('submit',function(e){
+				e.preventDefault();
+				var parentId = $(this).parent('div').attr('id');
+				var textId = parentId=='orig-tag'?window.workId:window.trId;
+				tdxio.tag.insert(textId,parentId);      
+				return false;
+			});   
+		});
+	   
 		$("a.delete").live("click",function(e){
 			e.preventDefault();
 			var taggableId,tagId,genre,workId;

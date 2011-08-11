@@ -106,7 +106,7 @@ var state;
         switch(action)
         {
         case 'ajaxextend':
-            $('form#extend-form').remove();
+            $('form#extend-form').detach();
             var lastId = $("#work div.text span:last")[0].id;
           //  alert(lastId);
             var newId = lastId;
@@ -146,7 +146,7 @@ var state;
 			};
         break; 
         case 'createtr':  
-			$("form#translate-form").remove();
+			$("form#translate-form").detach();
             $("div#new-translation").css('visibility','hidden'); 
             //1 add an element to the list of translations (window.translations): empty translation template
 			var lastTo = ajaxData.work.Sentences.pop().number;
