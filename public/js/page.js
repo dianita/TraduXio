@@ -587,6 +587,8 @@ var sentenceToTag;
     };
     
     $(document).ready(function() {
+		if(BrowserDetect.browser.search('MSIE')!=-1 && BrowserDetect.version < 9)
+			alert(BrowserDetect.browser+' :) '+BrowserDetect.version+' :) '+BrowserDetect.OS);
         var url;
         var action;
         var idstr = document.location.pathname.match(/\/id\/\d+/);
