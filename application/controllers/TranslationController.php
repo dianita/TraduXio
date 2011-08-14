@@ -175,8 +175,8 @@ class TranslationController extends Tdxio_Controller_Abstract
         $blocks=$model->fetchInterpretations($translationId);
         $lastBlock = end($blocks);
         if ($segToCut<0 || $segToCut>=$lastBlock['to_segment']) {
-            $this->view->data = array('response'=>false,'message'=>array('code'=>1,'text'=>__("Can not merge here %1\$d", $segToCut)));
-            throw new Zend_Controller_Action_Exception(sprintf(__("Can not merge here %1\$d", $segToCut)), 404);
+            $this->view->data = array('response'=>false,'message'=>array('code'=>1,'text'=>__("Can not cut here %1\$d", $segToCut)));
+            throw new Zend_Controller_Action_Exception(sprintf(__("Can not cut here %1\$d", $segToCut)), 404);
         }
         
         $result = $model->cut($translationId,$segToCut);

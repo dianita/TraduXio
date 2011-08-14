@@ -587,8 +587,8 @@ var sentenceToTag;
     };
     
     $(document).ready(function() {
-		if(BrowserDetect.browser.search('MSIE')!=-1 && BrowserDetect.version < 9)
-			alert(BrowserDetect.browser+' :) '+BrowserDetect.version+' :) '+BrowserDetect.OS);
+		if(BrowserDetect.browser=="Explorer" && BrowserDetect.version < 9)
+			alert(tdxio.i18n.unsupportedBrowserMsg);
         var url;
         var action;
         var idstr = document.location.pathname.match(/\/id\/\d+/);
@@ -729,7 +729,7 @@ var sentenceToTag;
                 success: function(rdata,status){
                     if (rdata.response==false) {
                         if(rdata.message.code == 2){tdxio.page.redirect(rdata.message.text);}
-                        else alert(rdata.message.code);
+                        else alert(rdata.message.message);
                     }else{
                         window.$.update(op,rdata);
                     }
@@ -755,29 +755,31 @@ var sentenceToTag;
 			$('textarea').bind('focus',function(){
 				$(this).css({'color':'#585858','font-family':'Verdana,Arial,Helvetica,sans-serif'});//,'font-size':$(this).parent().css('font-size')});
 			});	
+			
+			$('textarea').bind('keypress',function(e){
+				if(e.keyCode ==34){
+					if($("#"+this.id).next().length)
+						$("#"+this.id).next().click();
+					else if($("#next-page .turn-page").length>0){
+						$("#next-page .turn-page").click();					
+						$("#translation .block.show.editable:first").click();
+					}
+					e.preventDefault();
+				}else if(e.keyCode == 33){
+					if($("#"+this.id).prev().length)
+					{
+						$("#"+this.id).prev().click();
+					}else if($("#prev-page .turn-page").length>0){
+						$("#prev-page .turn-page").click();			
+						$("#translation .block.show.editable:last").click();
+					}
+					e.preventDefault();
+				}
+			});
 		});
 		
 		
-		$('textarea').live('keypress',function(e){
-			if(e.keyCode ==34){
-				if($("#"+this.id).next().length)
-					$("#"+this.id).next().click();
-				else if($("#next-page .turn-page").length>0){
-					$("#next-page .turn-page").click();					
-					$("#translation .block.show.editable:first").click();
-				}
-				e.preventDefault();
-			}else if(e.keyCode == 33){
-				if($("#"+this.id).prev().length)
-				{
-					$("#"+this.id).prev().click();
-				}else if($("#prev-page .turn-page").length>0){
-					$("#prev-page .turn-page").click();			
-					$("#translation .block.show.editable:last").click();
-				}
-				e.preventDefault();
-			}
-		});
+	
 	/*	$('.translator-name').live('click',function(e){
 			var content = trWork.work.translator;
 			$(this).empty().append("<input type=\"text\" value=\""+content+"\" />");			
