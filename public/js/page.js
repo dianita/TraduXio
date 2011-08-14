@@ -729,7 +729,7 @@ var sentenceToTag;
                 success: function(rdata,status){
                     if (rdata.response==false) {
                         if(rdata.message.code == 2){tdxio.page.redirect(rdata.message.text);}
-                        else alert(rdata.message.message);
+                        else alert(rdata.message.code);
                     }else{
                         window.$.update(op,rdata);
                     }
@@ -756,7 +756,7 @@ var sentenceToTag;
 				$(this).css({'color':'#585858','font-family':'Verdana,Arial,Helvetica,sans-serif'});//,'font-size':$(this).parent().css('font-size')});
 			});	
 			
-			$('textarea').bind('keypress',function(e){
+			$('textarea').live('keypress',function(e){
 				if(e.keyCode ==34){
 					if($("#"+this.id).next().length)
 						$("#"+this.id).next().click();
